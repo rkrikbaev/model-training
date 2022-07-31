@@ -1,5 +1,5 @@
 FROM jupyter/scipy-notebook:latest
-
+USER root
 ARG PROPHET_VER="1.0"
 
 RUN apt-get update
