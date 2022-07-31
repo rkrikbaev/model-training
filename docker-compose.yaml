@@ -45,7 +45,7 @@ services:
             - web
 
     jupyter:
-        image: rkrikbaev/prophet-notebook:latest
+        image: jupyter/scipy-notebook:latest #rkrikbaev/prophet-notebook:latest
         build: ./jupyter
         container_name: jupyter_notebook
         ports:
