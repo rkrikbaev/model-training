@@ -46,7 +46,7 @@ services:
 
     jupyter:
         image: jupyter/scipy-notebook:latest #rkrikbaev/prophet-notebook:latest
-        build: ./jupyter
+        # build: ./jupyter
         container_name: jupyter_notebook
         ports:
             - 8888:8888
