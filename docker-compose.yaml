@@ -45,18 +45,22 @@ services:
             - web
 
     jupyter:
-        image: jupyterlab:latest
+        image: rkrikbaev/prophet-notebook:latest
+        build: ./jupyter
+        container_name: jupyter_notebook
         ports:
             - 8888:8888
         volumes:
             - jupyterdata:/project
+        environment:
+            - JUPYTER_ENABLE_LAB=yes
         networks:
             - frontend
             - backend
 
 volumes:
   jupyterdata:
-    external: true
+    # external: true
   dbdata:
 
 networks:
