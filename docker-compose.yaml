@@ -45,18 +45,19 @@ services:
             - web
 
     jupyter:
-        image: rkrikbaev/prophet-notebook:latest
+        image: prophet-notebook:latest
         build: ./jupyter
         container_name: jupyter_notebook
         ports:
             - 8888:8888
         volumes:
-            - jupyterdata:/project
+            - ./jupyter/project:/home/project
         environment:
             - JUPYTER_ENABLE_LAB=yes
         networks:
             - frontend
             - backend
+        command: jupyter notebook --allow-root --no-browser --ip='0.0.0.0' --port=8888
 
 volumes:
   jupyterdata:
@@ -68,4 +69,3 @@ networks:
         driver: bridge
     backend:
         driver: bridge
-  

@@ -1,6 +1,6 @@
 FROM python:3.8.3
 
-# USER root
+USER root
 ARG PROPHET_VER="1.0"
 
 RUN apt-get update
@@ -10,15 +10,12 @@ RUN apt-get -y install \
     libc-dev
 
 RUN pip install --upgrade pip
-RUN pip install pip==19.1.1
+
 RUN pip install ipython==7.5.0
+RUN pip install prophet==1.1
+RUN pip install jupyter
 RUN pip install mlflow==1.24.0
 
-RUN wget https://github.com/facebook/prophet/archive/refs/tags/v${PROPHET_VER}.tar.gz \
-    && for f in *.tar*; do tar xf $f && rm -rf $f; done
+WORKDIR /home/project
 
-RUN cd prophet-${PROPHET_VER}/python && \
-    pip install -r requirements.txt && \
-    python setup.py install
-
-WORKDIR /
+RUN jupyter notebook --allow-root --no-browser --ip='0.0.0.0' --port=8888
