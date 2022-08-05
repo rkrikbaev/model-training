@@ -29,7 +29,7 @@ services:
             - backend
         command: mlflow server \
                 --backend-store-uri mysql+pymysql://${MYSQL_USER}:${MYSQL_PASSWORD}@db:3306/${MYSQL_DATABASE} \
-                --default-artifact-root file:${PWD}/mlruns \
+                --default-artifact-root file:/usr/local/modeling/mlruns \
                 --host 0.0.0.0 -p 5000
 
     nginx:
@@ -45,13 +45,14 @@ services:
             - web
 
     jupyter:
-        image: prophet-notebook:latest
+        image: prophet-notebook:latest # to be changed on jupyterhub
         build: ./jupyter
         container_name: jupyter_notebook
         ports:
             - 8888:8888
         volumes:
             - ./jupyter/project:/home/project
+            - /usr/local/modeling/mlruns:/mlruns
         environment:
             - JUPYTER_ENABLE_LAB=yes
         networks:
@@ -60,8 +61,6 @@ services:
         command: jupyter notebook --allow-root --no-browser --ip='0.0.0.0' --port=8888
 
 volumes:
-  jupyterdata:
-    # external: true
   dbdata:
 
 networks:
