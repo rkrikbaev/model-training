@@ -1,7 +1,7 @@
 FROM python:3.8.3
 
 USER root
-ARG PROPHET_VER="1.0"
+# ARG PROPHET_VER="1.0"
 
 RUN apt-get update
 RUN apt-get -y install \
