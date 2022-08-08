@@ -27,6 +27,7 @@ services:
         networks:
             - frontend
             - backend
+            - model
         command: mlflow server \
                 --backend-store-uri mysql+pymysql://${MYSQL_USER}:${MYSQL_PASSWORD}@db:3306/${MYSQL_DATABASE} \
                 --default-artifact-root file:/usr/local/modeling/mlruns \
@@ -67,4 +68,6 @@ networks:
   frontend:
     external: true
   backend:
+    external: true
+  model:
     external: true
