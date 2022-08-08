@@ -17,7 +17,7 @@ services:
         volumes:
             - dbdata:/var/lib/mysql
 
-    web:
+    mlflow:
         restart: always
         build: ./mlflow
         image: mlflow_server
@@ -42,7 +42,7 @@ services:
         networks:
             - frontend
         depends_on:
-            - web
+            - mlflow
 
     jupyter:
         image: prophet-notebook:latest # to be changed on jupyterhub
@@ -64,7 +64,9 @@ volumes:
   dbdata:
 
 networks:
-    frontend:
-        driver: bridge
-    backend:
-        driver: bridge
+  frontend:
+    driver: bridge
+    external: true
+  backend:
+    driver: bridge
+    external: true
